@@ -26,7 +26,7 @@
 ///});
 ///```
 ///
-library ReTouchable;
+library retouchable;
 
 export 'src/canvas_touch_detector.dart';
 export 'src/touchy_canvas.dart';

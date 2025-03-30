@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:ReTouchable/re_touchable.dart';
+import 'package:ReTouchable/retouchable.dart';
 
 class Screen3 extends StatefulWidget {
   @override

@@ -12,7 +12,7 @@ import 'package:ReTouchable/src/shapes/point.dart';
 import 'package:ReTouchable/src/shapes/rectangle.dart';
 import 'package:ReTouchable/src/shapes/rounded_rectangle.dart';
 import 'package:ReTouchable/src/shapes/util.dart';
-import 'package:ReTouchable/re_touchable.dart';
+import 'package:ReTouchable/retouchable.dart';
 
 void testOpaque() {
   group('SHape Handler : opaque hittest', () {

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:ReTouchable/src/hover.dart';
 import 'package:flutter/material.dart';
 import 'package:ReTouchable/src/types/types.dart';
 

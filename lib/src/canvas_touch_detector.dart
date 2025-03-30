@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:touchable/src/hover.dart';
-import 'package:touchable/src/shapes/shape.dart';
-import 'package:touchable/src/types/types.dart';
+import 'package:ReTouchable/src/hover.dart';
+import 'package:ReTouchable/src/shapes/shape.dart';
+import 'package:ReTouchable/src/types/types.dart';
 
 ///[CanvasTouchDetector] widget detects the gestures on your [CustomPaint] widget.
 ///
