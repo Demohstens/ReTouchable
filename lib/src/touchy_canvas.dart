@@ -1,8 +1,6 @@
-import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:ReTouchable/src/canvas_touch_detector.dart';
 import 'package:ReTouchable/src/shape_handler.dart';
@@ -20,6 +18,9 @@ import 'package:ReTouchable/src/shapes/util.dart';
 class TouchyCanvas {
   final Canvas _canvas;
 
+  late final Matrix4 initialTransform;
+  late final Matrix4 inverseInitialTransform;
+
   final ShapeHandler _shapeHandler = ShapeHandler();
 
   ///[TouchyCanvas] helps you add gesture callbacks to the shapes you draw.
@@ -32,6 +33,8 @@ class TouchyCanvas {
     ScrollController? scrollController,
     AxisDirection scrollDirection = AxisDirection.down,
   }) {
+    initialTransform = Matrix4.fromFloat64List(_canvas.getTransform());
+    inverseInitialTransform = Matrix4.inverted(initialTransform);
     var touchController = TouchDetectionController.of(context);
     touchController?.addListener((event) {
       _shapeHandler.handleGestureEvent(
@@ -77,28 +80,30 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawCircle(c, radius, paint);
     _shapeHandler.addShape(Circle(
-        center: c,
-        radius: radius,
-        paint: paint,
-        hitTestBehavior: hitTestBehavior,
-        gestureMap: TouchCanvasUtil.getGestureCallbackMap(
-          onTapDown: onTapDown,
-          onTapUp: onTapUp,
-          onLongPressStart: onLongPressStart,
-          onLongPressEnd: onLongPressEnd,
-          onLongPressMoveUpdate: onLongPressMoveUpdate,
-          onForcePressStart: onForcePressStart,
-          onForcePressEnd: onForcePressEnd,
-          onForcePressPeak: onForcePressPeak,
-          onForcePressUpdate: onForcePressUpdate,
-          onPanStart: onPanStart,
-          onPanUpdate: onPanUpdate,
-          onPanDown: onPanDown,
-          onSecondaryTapDown: onSecondaryTapDown,
-          onSecondaryTapUp: onSecondaryTapUp,
-        )));
+      center: MatrixUtils.transformPoint(matrix4, c),
+      radius: radius,
+      paint: paint,
+      hitTestBehavior: hitTestBehavior,
+      gestureMap: TouchCanvasUtil.getGestureCallbackMap(
+        onTapDown: onTapDown,
+        onTapUp: onTapUp,
+        onLongPressStart: onLongPressStart,
+        onLongPressEnd: onLongPressEnd,
+        onLongPressMoveUpdate: onLongPressMoveUpdate,
+        onForcePressStart: onForcePressStart,
+        onForcePressEnd: onForcePressEnd,
+        onForcePressPeak: onForcePressPeak,
+        onForcePressUpdate: onForcePressUpdate,
+        onPanStart: onPanStart,
+        onPanUpdate: onPanUpdate,
+        onPanDown: onPanDown,
+        onSecondaryTapDown: onSecondaryTapDown,
+        onSecondaryTapUp: onSecondaryTapUp,
+      ),
+    ));
   }
 
   void drawLine(
@@ -122,8 +127,11 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawLine(p1, p2, paint);
-    _shapeHandler.addShape(Line(p1, p2,
+    _shapeHandler.addShape(Line(
+        MatrixUtils.transformPoint(matrix4, p1),
+        MatrixUtils.transformPoint(matrix4, p2),
         paint: paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
@@ -141,7 +149,8 @@ class TouchyCanvas {
           onPanDown: onPanDown,
           onSecondaryTapDown: onSecondaryTapDown,
           onSecondaryTapUp: onSecondaryTapUp,
-        )));
+        ),
+    ));
   }
 
   void drawOval(
@@ -164,8 +173,10 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawOval(rect, paint);
-    _shapeHandler.addShape(Oval(rect,
+    _shapeHandler.addShape(Oval(
+      MatrixUtils.transformRect(matrix4, rect),
         paint: paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
@@ -183,8 +194,10 @@ class TouchyCanvas {
           onPanDown: onPanDown,
           onSecondaryTapDown: onSecondaryTapDown,
           onSecondaryTapUp: onSecondaryTapUp,
-        )));
+        ),
+    ));
   }
+
 
   void drawParagraph(Paragraph paragraph, Offset offset) {
     _canvas.drawParagraph(paragraph, offset);
@@ -193,27 +206,28 @@ class TouchyCanvas {
   }
 
   void drawPath(
-    Path path,
-    Paint paint, {
-    HitTestBehavior? hitTestBehavior,
-    GestureTapDownCallback? onTapDown,
-    PaintingStyle? paintStyleForTouch,
-    GestureTapUpCallback? onTapUp,
-    GestureLongPressStartCallback? onLongPressStart,
-    GestureLongPressEndCallback? onLongPressEnd,
-    GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate,
-    GestureForcePressStartCallback? onForcePressStart,
-    GestureForcePressEndCallback? onForcePressEnd,
-    GestureForcePressPeakCallback? onForcePressPeak,
-    GestureForcePressUpdateCallback? onForcePressUpdate,
-    GestureDragStartCallback? onPanStart,
-    GestureDragUpdateCallback? onPanUpdate,
-    GestureDragDownCallback? onPanDown,
-    GestureTapDownCallback? onSecondaryTapDown,
-    GestureTapUpCallback? onSecondaryTapUp,
-  }) {
+      Path path,
+      Paint paint, {
+        HitTestBehavior? hitTestBehavior,
+        GestureTapDownCallback? onTapDown,
+        PaintingStyle? paintStyleForTouch,
+        GestureTapUpCallback? onTapUp,
+        GestureLongPressStartCallback? onLongPressStart,
+        GestureLongPressEndCallback? onLongPressEnd,
+        GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate,
+        GestureForcePressStartCallback? onForcePressStart,
+        GestureForcePressEndCallback? onForcePressEnd,
+        GestureForcePressPeakCallback? onForcePressPeak,
+        GestureForcePressUpdateCallback? onForcePressUpdate,
+        GestureDragStartCallback? onPanStart,
+        GestureDragUpdateCallback? onPanUpdate,
+        GestureDragDownCallback? onPanDown,
+        GestureTapDownCallback? onSecondaryTapDown,
+        GestureTapUpCallback? onSecondaryTapUp,
+      }) {
+    final matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawPath(path, paint);
-    _shapeHandler.addShape(PathShape(path,
+    _shapeHandler.addShape(PathShape(path.transform(matrix4.storage),
         paint: paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
@@ -255,8 +269,10 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawPoints(pointMode, points, paint);
-    _shapeHandler.addShape(Point(pointMode, points,
+    var transformedPoints = points.map((point) => MatrixUtils.transformPoint(matrix4, point)).toList();
+    _shapeHandler.addShape(Point(pointMode, transformedPoints,
         paint: paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
@@ -274,7 +290,8 @@ class TouchyCanvas {
           onPanDown: onPanDown,
           onSecondaryTapDown: onSecondaryTapDown,
           onSecondaryTapUp: onSecondaryTapUp,
-        )));
+        ),
+    ));
   }
 
   void drawRRect(
@@ -319,6 +336,51 @@ class TouchyCanvas {
         )));
   }
 
+  void drawRect(
+    Rect rect,
+    Paint paint, {
+    HitTestBehavior? hitTestBehavior,
+    GestureTapDownCallback? onTapDown,
+    PaintingStyle? paintStyleForTouch,
+    GestureTapUpCallback? onTapUp,
+    GestureLongPressStartCallback? onLongPressStart,
+    GestureLongPressEndCallback? onLongPressEnd,
+    GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate,
+    GestureForcePressStartCallback? onForcePressStart,
+    GestureForcePressEndCallback? onForcePressEnd,
+    GestureForcePressPeakCallback? onForcePressPeak,
+    GestureForcePressUpdateCallback? onForcePressUpdate,
+    GestureDragStartCallback? onPanStart,
+    GestureDragUpdateCallback? onPanUpdate,
+    GestureDragDownCallback? onPanDown,
+    GestureTapDownCallback? onSecondaryTapDown,
+    GestureTapUpCallback? onSecondaryTapUp,
+  }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
+    _canvas.drawRect(rect, paint);
+    _shapeHandler.addShape(Rectangle(
+      MatrixUtils.transformRect(matrix4, rect),
+        paint: paint,
+        hitTestBehavior: hitTestBehavior,
+        gestureMap: TouchCanvasUtil.getGestureCallbackMap(
+          onTapDown: onTapDown,
+          onTapUp: onTapUp,
+          onLongPressStart: onLongPressStart,
+          onLongPressEnd: onLongPressEnd,
+          onLongPressMoveUpdate: onLongPressMoveUpdate,
+          onForcePressStart: onForcePressStart,
+          onForcePressEnd: onForcePressEnd,
+          onForcePressPeak: onForcePressPeak,
+          onForcePressUpdate: onForcePressUpdate,
+          onPanStart: onPanStart,
+          onPanUpdate: onPanUpdate,
+          onPanDown: onPanDown,
+          onSecondaryTapDown: onSecondaryTapDown,
+          onSecondaryTapUp: onSecondaryTapUp,
+        ),
+    ));
+  }
+
   void drawRawPoints(
     PointMode pointMode,
     Float32List points,
@@ -340,10 +402,11 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawRawPoints(pointMode, points, paint);
     List<Offset> offsetPoints = [];
     for (int i = 0; i < points.length; i += 2) {
-      offsetPoints.add(Offset(points[i], points[i + 1]));
+      offsetPoints.add(MatrixUtils.transformPoint(matrix4, Offset(points[i], points[i + 1])));
     }
     _shapeHandler.addShape(Point(pointMode, offsetPoints,
         paint: paint,
@@ -363,54 +426,8 @@ class TouchyCanvas {
           onPanDown: onPanDown,
           onSecondaryTapDown: onSecondaryTapDown,
           onSecondaryTapUp: onSecondaryTapUp,
-        )));
-  }
-
-  void drawRect(
-    Rect rect,
-    Paint paint, {
-    HitTestBehavior? hitTestBehavior,
-    GestureTapDownCallback? onTapDown,
-    PaintingStyle? paintStyleForTouch,
-    GestureTapUpCallback? onTapUp,
-    GestureLongPressStartCallback? onLongPressStart,
-    GestureLongPressEndCallback? onLongPressEnd,
-    GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate,
-    GestureForcePressStartCallback? onForcePressStart,
-    GestureForcePressEndCallback? onForcePressEnd,
-    GestureForcePressPeakCallback? onForcePressPeak,
-    GestureForcePressUpdateCallback? onForcePressUpdate,
-    GestureDragStartCallback? onPanStart,
-    GestureDragUpdateCallback? onPanUpdate,
-    GestureDragDownCallback? onPanDown,
-    GestureTapDownCallback? onSecondaryTapDown,
-    GestureTapUpCallback? onSecondaryTapUp,
-  }) {
-    _canvas.drawRect(rect, paint);
-    _shapeHandler.addShape(Rectangle(rect,
-        paint: paint,
-        hitTestBehavior: hitTestBehavior,
-        gestureMap: TouchCanvasUtil.getGestureCallbackMap(
-          onTapDown: onTapDown,
-          onTapUp: onTapUp,
-          onLongPressStart: onLongPressStart,
-          onLongPressEnd: onLongPressEnd,
-          onLongPressMoveUpdate: onLongPressMoveUpdate,
-          onForcePressStart: onForcePressStart,
-          onForcePressEnd: onForcePressEnd,
-          onForcePressPeak: onForcePressPeak,
-          onForcePressUpdate: onForcePressUpdate,
-          onPanStart: onPanStart,
-          onPanUpdate: onPanUpdate,
-          onPanDown: onPanDown,
-          onSecondaryTapDown: onSecondaryTapDown,
-          onSecondaryTapUp: onSecondaryTapUp,
-        )));
-  }
-
-  void drawShadow(Path path, Color color, double elevation, bool transparentOccluder) {
-    _canvas.drawShadow(path, color, elevation, transparentOccluder);
-    // _shapeHandler.addShape(PathShape(path));
+        ),
+    ));
   }
 
   void drawImage(
@@ -434,26 +451,29 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawImage(image, p, paint);
-    _shapeHandler.addShape(Rectangle(Rect.fromLTWH(p.dx, p.dy, image.width.toDouble(), image.height.toDouble()),
-        paint: paint,
-        hitTestBehavior: hitTestBehavior,
-        gestureMap: TouchCanvasUtil.getGestureCallbackMap(
-          onTapDown: onTapDown,
-          onTapUp: onTapUp,
-          onLongPressStart: onLongPressStart,
-          onLongPressEnd: onLongPressEnd,
-          onLongPressMoveUpdate: onLongPressMoveUpdate,
-          onForcePressStart: onForcePressStart,
-          onForcePressEnd: onForcePressEnd,
-          onForcePressPeak: onForcePressPeak,
-          onForcePressUpdate: onForcePressUpdate,
-          onPanStart: onPanStart,
-          onPanUpdate: onPanUpdate,
-          onPanDown: onPanDown,
-          onSecondaryTapDown: onSecondaryTapDown,
-          onSecondaryTapUp: onSecondaryTapUp,
-        )));
+    _shapeHandler.addShape(Rectangle(
+      MatrixUtils.transformRect(matrix4, Rect.fromLTWH(p.dx, p.dy, image.width.toDouble(), image.height.toDouble())),
+      paint: paint,
+      hitTestBehavior: hitTestBehavior,
+      gestureMap: TouchCanvasUtil.getGestureCallbackMap(
+        onTapDown: onTapDown,
+        onTapUp: onTapUp,
+        onLongPressStart: onLongPressStart,
+        onLongPressEnd: onLongPressEnd,
+        onLongPressMoveUpdate: onLongPressMoveUpdate,
+        onForcePressStart: onForcePressStart,
+        onForcePressEnd: onForcePressEnd,
+        onForcePressPeak: onForcePressPeak,
+        onForcePressUpdate: onForcePressUpdate,
+        onPanStart: onPanStart,
+        onPanUpdate: onPanUpdate,
+        onPanDown: onPanDown,
+        onSecondaryTapDown: onSecondaryTapDown,
+        onSecondaryTapUp: onSecondaryTapUp,
+      ),
+    ));
   }
 
   void drawArc(
@@ -479,8 +499,13 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
+    var matrix4 = _transformationsAppliedToCanvas(Matrix4.fromFloat64List(_canvas.getTransform()));
     _canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
-    var arc = Arc(rect, startAngle, sweepAngle, useCenter,
+    var arc = Arc(
+        MatrixUtils.transformRect(matrix4, rect),
+        startAngle,
+        sweepAngle,
+        useCenter,
         paint: paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
@@ -498,8 +523,14 @@ class TouchyCanvas {
           onPanDown: onPanDown,
           onSecondaryTapDown: onSecondaryTapDown,
           onSecondaryTapUp: onSecondaryTapUp,
-        ));
+        ),
+    );
     _shapeHandler.addShape(arc);
+  }
+
+  Matrix4 _transformationsAppliedToCanvas(Matrix4 transformedMatrix) {
+    // Step 2: Multiply the inverted initial matrix by the transformed matrix
+    return inverseInitialTransform * transformedMatrix;
   }
 
 //
