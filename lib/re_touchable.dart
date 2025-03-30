@@ -1,6 +1,6 @@
 ///Touchable is flutter library to add various gesture callbacks to each Shape you draw on your canvas in your CustomPainter
 ///
-///When using touchable , the only two classes that you would need to use are : [TouchyCanvas] and [CanvasTouchDetector]
+///When using ReTouchable , the only two classes that you would need to use are : [TouchyCanvas] and [CanvasTouchDetector]
 ///
 ///## Usage :
 ///
@@ -26,7 +26,7 @@
 ///});
 ///```
 ///
-library touchable;
+library ReTouchable;
 
 export 'src/canvas_touch_detector.dart';
 export 'src/touchy_canvas.dart';

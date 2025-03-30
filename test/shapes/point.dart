@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:touchable/src/shapes/point.dart';
+import 'package:ReTouchable/src/shapes/point.dart';
 
 void testPoint() {
   test('PointMode.points : Point lie on or off the points test', () {

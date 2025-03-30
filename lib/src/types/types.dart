@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:touchable/src/shapes/clip.dart';
+import 'package:ReTouchable/src/shapes/clip.dart';
 
 typedef CustomTouchPaintBuilder = CustomPaint Function(BuildContext context);
 

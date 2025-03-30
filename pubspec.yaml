@@ -1,8 +1,8 @@
-name: touchable
+name: ReTouchable
 description: Flutter library to add various gesture callbacks to each Shape you draw on your canvas in your CustomPainter
 version: 1.0.1
-repository: https://github.com/nateshmbhat/touchable
-homepage: https://github.com/nateshmbhat/touchable
+repository: https://github.com/Demohstens/ReTouchable
+homepage: https://github.com/Demohstens/ReTouchable
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  vector_math: ^2.1.4
 
 dev_dependencies:
   flutter_test:

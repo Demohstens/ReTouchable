@@ -2,7 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:touchable/touchable.dart';
+import 'package:ReTouchable/re_touchable.dart';
 
 class Screen1 extends StatefulWidget {
   @override
