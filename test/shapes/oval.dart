@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:touchable/src/shapes/oval.dart';
+import 'package:ReTouchable/src/shapes/oval.dart';
 
 void testOval() {
   test('Filled Oval : point inside test', () {

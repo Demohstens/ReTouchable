@@ -2,11 +2,11 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:touchable/src/shapes/constant.dart';
-import 'package:touchable/src/shapes/line.dart';
-import 'package:touchable/src/shapes/oval.dart';
-import 'package:touchable/src/shapes/shape.dart';
-import 'package:touchable/src/types/types.dart';
+import 'package:ReTouchable/src/shapes/constant.dart';
+import 'package:ReTouchable/src/shapes/line.dart';
+import 'package:ReTouchable/src/shapes/oval.dart';
+import 'package:ReTouchable/src/shapes/shape.dart';
+import 'package:ReTouchable/src/types/types.dart';
 
 ///See https://math.stackexchange.com/questions/3622277/how-to-test-if-a-point-lies-inside-a-segment-of-an-arc-that-is-formed-by-a-recta?noredirect=1#comment7446310_3622277
 ///for more info on point detection

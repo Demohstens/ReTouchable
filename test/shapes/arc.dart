@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:touchable/src/shapes/arc.dart';
+import 'package:ReTouchable/src/shapes/arc.dart';
 
 void testArc() {
   test('Arc test to check if point lies inside filled segment', () {

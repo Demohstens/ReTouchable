@@ -2,7 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:touchable/src/types/types.dart';
+import 'package:ReTouchable/src/types/types.dart';
 
 class ShapeUtil {
   static double distance(Offset p1, Offset p2) {

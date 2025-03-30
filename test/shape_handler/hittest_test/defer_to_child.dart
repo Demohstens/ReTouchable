@@ -3,16 +3,16 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:touchable/src/shape_handler.dart';
-import 'package:touchable/src/shapes/arc.dart';
-import 'package:touchable/src/shapes/circle.dart';
-import 'package:touchable/src/shapes/line.dart';
-import 'package:touchable/src/shapes/oval.dart';
-import 'package:touchable/src/shapes/point.dart';
-import 'package:touchable/src/shapes/rectangle.dart';
-import 'package:touchable/src/shapes/rounded_rectangle.dart';
-import 'package:touchable/src/shapes/util.dart';
-import 'package:touchable/touchable.dart';
+import 'package:ReTouchable/src/shape_handler.dart';
+import 'package:ReTouchable/src/shapes/arc.dart';
+import 'package:ReTouchable/src/shapes/circle.dart';
+import 'package:ReTouchable/src/shapes/line.dart';
+import 'package:ReTouchable/src/shapes/oval.dart';
+import 'package:ReTouchable/src/shapes/point.dart';
+import 'package:ReTouchable/src/shapes/rectangle.dart';
+import 'package:ReTouchable/src/shapes/rounded_rectangle.dart';
+import 'package:ReTouchable/src/shapes/util.dart';
+import 'package:ReTouchable/re_touchable.dart';
 
 void testDeferToChild() {
   group('SHape Handler : Defer to child hittest', () {

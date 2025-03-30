@@ -4,18 +4,18 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide Image;
-import 'package:touchable/src/canvas_touch_detector.dart';
-import 'package:touchable/src/shape_handler.dart';
-import 'package:touchable/src/shapes/arc.dart';
-import 'package:touchable/src/shapes/circle.dart';
-import 'package:touchable/src/shapes/clip.dart';
-import 'package:touchable/src/shapes/line.dart';
-import 'package:touchable/src/shapes/oval.dart';
-import 'package:touchable/src/shapes/path.dart';
-import 'package:touchable/src/shapes/point.dart';
-import 'package:touchable/src/shapes/rectangle.dart';
-import 'package:touchable/src/shapes/rounded_rectangle.dart';
-import 'package:touchable/src/shapes/util.dart';
+import 'package:ReTouchable/src/canvas_touch_detector.dart';
+import 'package:ReTouchable/src/shape_handler.dart';
+import 'package:ReTouchable/src/shapes/arc.dart';
+import 'package:ReTouchable/src/shapes/circle.dart';
+import 'package:ReTouchable/src/shapes/clip.dart';
+import 'package:ReTouchable/src/shapes/line.dart';
+import 'package:ReTouchable/src/shapes/oval.dart';
+import 'package:ReTouchable/src/shapes/path.dart';
+import 'package:ReTouchable/src/shapes/point.dart';
+import 'package:ReTouchable/src/shapes/rectangle.dart';
+import 'package:ReTouchable/src/shapes/rounded_rectangle.dart';
+import 'package:ReTouchable/src/shapes/util.dart';
 
 class TouchyCanvas {
   final Canvas _canvas;
