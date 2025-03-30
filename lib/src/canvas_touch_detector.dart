@@ -77,48 +77,6 @@ class _CanvasTouchDetectorState extends State<CanvasTouchDetector> {
                 : () {
                     touchController.add(Gesture(GestureType.onTapCancel, null));
                   },
-            onHorizontalDragDown: !widget.gesturesToOverride
-                    .contains(GestureType.onHorizontalDragDown)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onHorizontalDragDown, tapDetail));
-                  },
-            onHorizontalDragStart: !widget.gesturesToOverride
-                    .contains(GestureType.onHorizontalDragStart)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onHorizontalDragStart, tapDetail));
-                  },
-            onHorizontalDragUpdate: !widget.gesturesToOverride
-                    .contains(GestureType.onHorizontalDragUpdate)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onHorizontalDragUpdate, tapDetail));
-                  },
-            onVerticalDragDown: !widget.gesturesToOverride
-                    .contains(GestureType.onVerticalDragDown)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onVerticalDragDown, tapDetail));
-                  },
-            onVerticalDragStart: !widget.gesturesToOverride
-                    .contains(GestureType.onVerticalDragStart)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onVerticalDragStart, tapDetail));
-                  },
-            onVerticalDragUpdate: !widget.gesturesToOverride
-                    .contains(GestureType.onVerticalDragUpdate)
-                ? null
-                : (tapDetail) {
-                    touchController.add(
-                        Gesture(GestureType.onVerticalDragUpdate, tapDetail));
-                  },
             onLongPressStart: !widget.gesturesToOverride
                     .contains(GestureType.onLongPressStart)
                 ? null
@@ -182,27 +140,13 @@ class _CanvasTouchDetectorState extends State<CanvasTouchDetector> {
                     touchController.add(
                         Gesture(GestureType.onForcePressUpdate, tapDetail));
                   },
-            onPanStart:
-                !widget.gesturesToOverride.contains(GestureType.onPanStart)
-                    ? null
-                    : (tapDetail) {
-                        touchController
-                            .add(Gesture(GestureType.onPanStart, tapDetail));
-                      },
-            onPanUpdate:
-                !widget.gesturesToOverride.contains(GestureType.onPanUpdate)
-                    ? null
-                    : (tapDetail) {
-                        touchController
-                            .add(Gesture(GestureType.onPanUpdate, tapDetail));
-                      },
-            onPanDown:
-                !widget.gesturesToOverride.contains(GestureType.onPanDown)
-                    ? null
-                    : (tapDetail) {
-                        touchController
-                            .add(Gesture(GestureType.onPanDown, tapDetail));
-                      },
+            // onScaleDown:
+            //     !widget.gesturesToOverride.contains(GestureType.onScaleDown)
+            //         ? null
+            //         : (tapDetail) {
+            //             touchController
+            //                 .add(Gesture(GestureType.onScaleDown, tapDetail));
+            //           },
             onSecondaryTapDown: !widget.gesturesToOverride
                     .contains(GestureType.onSecondaryTapDown)
                 ? null
