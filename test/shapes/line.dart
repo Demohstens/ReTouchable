@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:touchable/src/shapes/line.dart';
+import 'package:ReTouchable/src/shapes/line.dart';
 
 void testLine() {
   test('Test points lie on and off the line', () {

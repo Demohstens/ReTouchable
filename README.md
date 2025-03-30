@@ -1,22 +1,22 @@
 <p align="center">
-<img width="200" src="https://raw.githubusercontent.com/nateshmbhat/touchable/master/.github/logo.svg"/>
+<img width="200" src="https://raw.githubusercontent.com/nateshmbhat/ReTouchable/master/.github/logo.svg"/>
 </p>
 <h2 align="center"> Flutter library to bring your CustomPainter 🎨 to Life ✨⚡️ </h2>
 
 
-[![](https://img.shields.io/pub/v/touchable)](https://pub.dev/packages/touchable)
-[![](https://img.shields.io/badge/package-flutter-blue)](https://github.com/nateshmbhat/touchable)
-[![](https://img.shields.io/github/license/nateshmbhat/touchable)](https://github.com/nateshmbhat/touchable)
-[![](https://img.shields.io/github/stars/nateshmbhat/touchable)](https://github.com/nateshmbhat/touchable)
-[![](https://img.shields.io/github/forks/nateshmbhat/touchable)](https://github.com/nateshmbhat/touchable)
-[![](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fnateshmbhat%2Ftouchable)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fnateshmbhat%2Ftouchable)
-[![](https://img.shields.io/github/languages/code-size/nateshmbhat/touchable)](https://github.com/nateshmbhat/touchable)
+[![](https://img.shields.io/pub/v/ReTouchable)](https://pub.dev/packages/ReTouchable)
+[![](https://img.shields.io/badge/package-flutter-blue)](https://github.com/nateshmbhat/ReTouchable)
+[![](https://img.shields.io/github/license/nateshmbhat/ReTouchable)](https://github.com/nateshmbhat/ReTouchable)
+[![](https://img.shields.io/github/stars/nateshmbhat/ReTouchable)](https://github.com/nateshmbhat/ReTouchable)
+[![](https://img.shields.io/github/forks/nateshmbhat/ReTouchable)](https://github.com/nateshmbhat/ReTouchable)
+[![](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fnateshmbhat%2FReTouchable)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fnateshmbhat%2FReTouchable)
+[![](https://img.shields.io/github/languages/code-size/nateshmbhat/ReTouchable)](https://github.com/nateshmbhat/ReTouchable)
 [![](https://img.shields.io/badge/author-nateshmbhat-green.svg)](https://github.com/nateshmbhat)
 
 
 
 
-#### `touchable` library gives you the ability to add various **gestures** and animations to each **Shape** you draw on your canvas in the CustomPainter
+#### `ReTouchable` library gives you the ability to add various **gestures** and animations to each **Shape** you draw on your canvas in the CustomPainter
 <br />
 
 <p align="center">
@@ -29,10 +29,10 @@
 
 
 ## Index : 
-- [Why Use Touchable ?](#why-use-touchable)
+- [Why Use Touchable ?](#why-use-ReTouchable)
 - [Installation](#installation)
 - [Usage](#usage)
-- [How it works](#how-touchable-works)
+- [How it works](#how-ReTouchable-works)
 - [Road Map 🗺](#road-map)
 - [Links](#links)
 
@@ -50,14 +50,14 @@
 - Simple and Easy API. Just wrap your `CustomPaint` with `CanvasTouchDetector` and use the `TouchyCanvas` in your painter.
 
 
-> With touchable , you get what the normal canvas always missed : **touchability** 😉
+> With ReTouchable , you get what the normal canvas always missed : **touchability** 😉
 
 
 ## Installation
-Add the `touchable` package as dependency in your `pubspec.yaml`
+Add the `ReTouchable` package as dependency in your `pubspec.yaml`
 ```dart
 dependencies:
-  touchable:
+  ReTouchable:
 ```
 
 
@@ -119,7 +119,7 @@ class MyPainter extends CustomPainter {
 }
 ```
 
-#### Read the article on Medium : [Bring Your CustomPainter to Life using Touchable](https://medium.com/flutter-community/bring-your-custompainter-paintings-to-life-in-flutter-using-touchable-c2413cd1897)
+#### Read the article on Medium : [Bring Your CustomPainter to Life using Touchable](https://medium.com/flutter-community/bring-your-custompainter-paintings-to-life-in-flutter-using-ReTouchable-c2413cd1897)
 
 ---
 <br />
@@ -164,8 +164,8 @@ When user performs any gesture on the screen , based on the location of the gest
 
 
 ## Links
-+ [Touchable Docs](https://pub.dev/documentation/touchable/latest/)
-+ [Pub Dev](https://pub.dev/packages/touchable)
++ [Touchable Docs](https://pub.dev/documentation/ReTouchable/latest/)
++ [Pub Dev](https://pub.dev/packages/ReTouchable)
 + [Other Dart/Flutter Packages](https://pub.dev/packages?q=email%3Anateshmbhat1%40gmail.com)
-+ [HomePage](https://github.com/nateshmbhat/touchable)
++ [HomePage](https://github.com/nateshmbhat/ReTouchable)
 + [My Github Page](https://github.com/nateshmbhat)

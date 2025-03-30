@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:touchable/src/shapes/constant.dart';
-import 'package:touchable/touchable.dart';
+import 'package:ReTouchable/src/shapes/constant.dart';
+import 'package:ReTouchable/re_touchable.dart';
 
 abstract class Shape {
   final Paint paint;

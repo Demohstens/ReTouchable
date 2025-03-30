@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-import 'package:touchable/src/shapes/shape.dart';
+import 'package:ReTouchable/src/shapes/shape.dart';
 
 abstract class ClipShape extends Shape {
   ClipShape() : super(paint: Paint(), gestureCallbackMap: {});
